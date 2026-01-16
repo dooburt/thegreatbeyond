@@ -1,0 +1,18 @@
+
+#Entities in the `desirepaths:mobs` entity type tag will also create desire paths when walking
+["Desire paths"]
+	#Chance for blocks to transform each tick
+	#Range: 0.0 ~ 1.0
+	"Chance to transform" = 0.008
+	#If true, speed will increase/decrease based off speed. The base chance 'Chance to transform' is with walking speed.
+	"Speed based chance" = true
+	#Each level of Feather Falling will reduce the chance to transform by this percentage amount. E.g. with the default settings, Feather Falling IV will fully prevent blocks from transforming.
+	#Range: 0.0 ~ 1.0
+	"Feather falling transform chance reduction" = 0.25
+	#If true, crouching will prevent blocks from transforming.
+	"Crouch prevents transform" = true
+	#Tall grass is broken when grass is transformed
+	"Break tall grass" = true
+	#Transform list of blocks
+	"Transformation List" = ["minecraft:grass_block,minecraft:dirt", "minecraft:dirt,minecraft:coarse_dirt"]
+
