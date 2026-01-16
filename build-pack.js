@@ -45,6 +45,7 @@ function shouldExclude(filePath) {
     rel === "generate-manifest.js" ||
     rel === "instance.json" ||
     rel === "README.md" ||
+    rel === "DEVELOPER.md" ||
     rel === "package.json" ||
     rel === "package-lock.json" ||
     rel === ".gitignore" ||
