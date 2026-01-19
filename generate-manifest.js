@@ -73,6 +73,8 @@ if (files.length === 0) {
 }
 
 // --- Build human readable modlist.html ---
+modlistFiles.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
