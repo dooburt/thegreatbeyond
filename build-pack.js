@@ -5,6 +5,7 @@ const path = require("path");
 const archiver = require("archiver");
 
 const ROOT = __dirname;
+const BUILDS_DIR = path.join(ROOT, "..", "builds");
 const MODLIST_FILE = path.join(ROOT, "modlist.html");
 const MANIFEST_FILE = path.join(ROOT, "manifest.json");
 const OVERRIDES_DIR = path.join(ROOT, "overrides");
@@ -25,6 +26,12 @@ if (!fs.existsSync(OVERRIDES_DIR)) {
   process.exit(1);
 }
 
+// ---- Create builds directory if it doesn't exist ----
+if (!fs.existsSync(BUILDS_DIR)) {
+  fs.mkdirSync(BUILDS_DIR, { recursive: true });
+  console.log("📁 Created builds directory");
+}
+
 // ---- Read manifest ----
 const manifestData = fs.readFileSync(MANIFEST_FILE, "utf-8");
 const manifest = JSON.parse(manifestData);
@@ -34,7 +41,7 @@ const packVersion = manifest.version || "1.0.0";
 
 // ---- Create ZIP name ----
 const zipName = `${packName.replace(/[^a-zA-Z0-9-_]/g, "")}-${packVersion}.zip`;
-const zipPath = path.join(ROOT, zipName);
+const zipPath = path.join(BUILDS_DIR, zipName);
 
 // ---- ZIP creation helpers ----
 function shouldExclude(filePath) {
@@ -43,16 +50,19 @@ function shouldExclude(filePath) {
   return (
     rel === "build-pack.js" ||
     rel === "generate-manifest.js" ||
+    rel === "echo-modlist.js" ||
     rel === "instance.json" ||
     rel === "README.md" ||
     rel === "DEVELOPER.md" ||
+    rel === "ECHO-MODLIST.md" ||
     rel === "package.json" ||
     rel === "package-lock.json" ||
     rel === ".gitignore" ||
     rel === zipName || // Exclude the output ZIP file itself!
     rel.endsWith(".zip") || // Exclude all ZIP files to be safe
     rel.startsWith(".git" + path.sep) ||
-    rel.startsWith("node_modules" + path.sep)
+    rel.startsWith("node_modules" + path.sep) ||
+    rel.startsWith("builds" + path.sep)
   );
 }
 

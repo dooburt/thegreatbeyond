@@ -16,13 +16,13 @@ const instance = JSON.parse(fs.readFileSync(INSTANCE_FILE, "utf-8"));
 
 // ---- Extract core metadata ----
 const packName = instance.launcher.name || "Unnamed Modpack";
-const packVersion = instance.version || "0.1.0";
+const packVersion = instance.version || "0.1.2";
 const mcVersion = instance.launcher.version;
 const forgeVersion = instance.launcher.loaderVersion.version;
 
 if (!mcVersion || !forgeVersion) {
   console.error(
-    "❌ Missing minecraftVersion or loaderVersion in instance.json"
+    "❌ Missing minecraftVersion or loaderVersion in instance.json",
   );
   process.exit(1);
 }
@@ -59,11 +59,11 @@ for (const mod of instance.launcher.mods || []) {
   });
 
   console.log(
-    `✔ Added mod: ${mod.name} (Project ID: ${projectID}, File ID: ${fileID})`
+    `✔ Added mod: ${mod.name} (Project ID: ${projectID}, File ID: ${fileID})`,
   );
 
   modlistFiles.push(
-    `${mod.name} (CurseForge Project ID: ${projectID}, CurseForge File ID: ${fileID})`
+    `${mod.name} (CurseForge Project ID: ${projectID}, CurseForge File ID: ${fileID})`,
   );
 }
 
@@ -73,7 +73,9 @@ if (files.length === 0) {
 }
 
 // --- Build human readable modlist.html ---
-modlistFiles.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+modlistFiles.sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base" }),
+);
 
 const html = `<!DOCTYPE html>
 <html lang="en">
